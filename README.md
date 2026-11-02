@@ -4,85 +4,105 @@
 
 C# · .NET 10 · Visual Studio 2026 · xUnit
 
-## Objetivo
+## Sobre o projeto
 
-Demonstrar a implementação e execução de testes unitários em C#, utilizando xUnit, através de um exemplo prático de cálculo de descontos.
+Este Hands-On demonstra a implementação de testes unitários em C#, utilizando o framework xUnit, através de um exemplo prático de cálculo de descontos.
 
-O projeto permite validar regras de negócio, testar diferentes cenários de entrada, verificar exceções e analisar a cobertura de código.
+O objetivo é explorar a validação de regras de negócio, a utilização de testes parametrizados, a verificação de exceções e a análise da cobertura de código.
+
+O projeto inclui o código-fonte, testes automatizados, um guia técnico de configuração e um relatório HTML de cobertura.
+
+## Tecnologias utilizadas
+
+| Tecnologia | Finalidade |
+|---|---|
+| C# / .NET 10 | Desenvolvimento da lógica de negócio |
+| Visual Studio 2026 | Ambiente de desenvolvimento |
+| xUnit 2.9.3 | Framework de testes unitários |
+| Microsoft.NET.Test.Sdk 17.14.1 | Infraestrutura de execução de testes |
+| xunit.runner.visualstudio 3.1.4 | Integração dos testes com o Visual Studio |
+| coverlet.collector 6.0.4 | Recolha de métricas de cobertura |
+| ReportGenerator 5.5.12 | Geração de relatórios HTML |
 
 ## Estrutura da solução
 
 ```text
-TestesUnitariosHandsOnDemo/
+HandsOn-03-Testes-Unitarios-xUnit/
 ├── TestesUnitariosHandsOnDemo.Core/
 │   └── CalculadoraDescontos.cs
 ├── TestesUnitariosHandsOnDemo/
 │   └── UnitTest1.cs
+├── CoverageReport/
+│   └── index.html
+├── docs/
+│   └── HandsOn-03-Guia-Tecnico.pdf
+├── README.md
 ├── .gitignore
-└── README.md
+└── TestesUnitariosHandsOnDemo.slnx
 ```
 
-**Core:** biblioteca de classes que contém a lógica de negócio.
-
-**Projeto de testes:** contém os testes automatizados desenvolvidos com xUnit.
-
-## Tecnologias utilizadas
-
-- C# e .NET 10
-- Visual Studio 2026
-- xUnit 2.9.3
-- Microsoft.NET.Test.Sdk 17.14.1
-- xunit.runner.visualstudio 3.1.4
-- coverlet.collector 6.0.4
-- ReportGenerator 5.5.12
+A pasta `docs` deverá ser criada e o guia técnico colocado na localização indicada.
 
 ## Funcionalidades implementadas
 
-A classe `CalculadoraDescontos` disponibiliza três métodos:
+A classe `CalculadoraDescontos` contém três métodos:
 
-| Método | Descrição |
+| Método | Responsabilidade |
 |---|---|
-| `CalcularSubtotal()` | Calcula o subtotal com base no preço e quantidade. |
-| `CalcularDesconto()` | Calcula o desconto percentual. |
-| `CalcularTotal()` | Calcula o valor final após aplicação do desconto. |
+| `CalcularSubtotal()` | Calcula o subtotal a partir do preço unitário e da quantidade |
+| `CalcularDesconto()` | Calcula o desconto percentual |
+| `CalcularTotal()` | Determina o valor final após o desconto |
 
 Os métodos incluem validações para impedir valores inválidos.
 
 ## Testes unitários
 
-Foram utilizados os seguintes recursos do xUnit:
+Foram explorados os seguintes recursos do xUnit:
 
-- `[Fact]` — execução de um teste individual.
-- `[Theory]` — execução de testes parametrizados.
-- `[InlineData]` — definição de diferentes conjuntos de dados.
-- `Assert.Equal()` — comparação entre resultados esperados e obtidos.
+- `[Fact]` — testes individuais.
+- `[Theory]` e `[InlineData]` — testes parametrizados.
+- `Assert.Equal()` — validação de resultados.
 - `Assert.Throws<ArgumentException>()` — verificação de exceções.
+- Padrão AAA — Arrange, Act, Assert.
 
-Os testes seguem o padrão **AAA (Arrange, Act, Assert)**.
+## Executar o projeto
 
-## Execução dos testes
+**Pré-requisitos:** .NET 10 SDK e Visual Studio 2026 ou outro ambiente compatível.
+
+Clonar o repositório:
+
+```bash
+git clone https://github.com/FgAraujo-web/HandsOn-03-Testes-Unitarios-xUnit.git
+```
 
 Na pasta principal da solução, executar:
 
 ```powershell
+dotnet restore
 dotnet test
 ```
 
 ## Cobertura de código
 
-Para executar os testes e recolher métricas de cobertura:
+Executar os testes com recolha de cobertura:
 
 ```powershell
 dotnet test --collect:"XPlat Code Coverage"
 ```
 
-Para gerar um relatório HTML com o ReportGenerator:
+Instalar o ReportGenerator, caso ainda não esteja disponível:
+
+```powershell
+dotnet tool install --global dotnet-reportgenerator-globaltool
+```
+
+Gerar o relatório HTML:
 
 ```powershell
 reportgenerator "-reports:TestesUnitariosHandsOnDemo\TestResults\**\coverage.cobertura.xml" "-targetdir:CoverageReport" "-reporttypes:Html"
 ```
 
-O relatório pode ser consultado através do ficheiro `CoverageReport/index.html`.
+O relatório pode ser consultado no ficheiro `CoverageReport/index.html`.
 
 ## Resultados obtidos
 
@@ -95,18 +115,41 @@ O relatório pode ser consultado através do ficheiro `CoverageReport/index.html
 | Cobertura de ramificações | 100% (16/16) |
 | Métodos analisados | 3 |
 
-Os resultados correspondem à classe `CalculadoraDescontos` na execução documentada.
+Os resultados correspondem à execução documentada e à classe `CalculadoraDescontos`.
 
-**Nota:** 100% de cobertura não garante ausência de defeitos. A cobertura demonstra que as linhas e ramificações instrumentadas foram executadas, mas não substitui a qualidade dos cenários e das verificações implementadas.
+**Nota:** uma cobertura de 100% não garante ausência de defeitos. É igualmente importante avaliar a qualidade dos cenários e das verificações implementadas.
+
+## Documentação técnica
+
+O guia técnico apresenta o desenvolvimento do exercício passo a passo, incluindo:
+
+1. Introdução aos testes unitários e às tecnologias utilizadas.
+2. Criação da solução e dos projetos no Visual Studio 2026.
+3. Configuração das referências e dos pacotes NuGet.
+4. Implementação de testes com xUnit.
+5. Execução e diagnóstico de problemas.
+6. Recolha e interpretação da cobertura de código.
+
+**[Consultar o Guia Técnico — HANDS-ON #03](docs/HandsOn-03-Guia-Tecnico.pdf)**
+
+## Relatório de cobertura
+
+O projeto disponibiliza um relatório HTML gerado com Coverlet e ReportGenerator.
+
+**[Consultar os ficheiros do relatório de cobertura](CoverageReport/)**
+
+Para visualizar o relatório completo, abrir localmente o ficheiro `CoverageReport/index.html` num navegador.
 
 ## Conclusão
 
-Este Hands-On demonstra como os testes unitários contribuem para a validação de regras de negócio e para a identificação de comportamentos inesperados.
+Os testes unitários constituem uma prática importante para validar comportamentos e apoiar a evolução segura das aplicações.
 
-A utilização conjunta de xUnit, Coverlet e ReportGenerator permite implementar testes automatizados, recolher métricas e analisar visualmente a cobertura do código.
+Este Hands-On demonstra como combinar xUnit, Coverlet e ReportGenerator para implementar testes automatizados, analisar resultados e identificar o código exercitado pelos testes.
 
 ---
 
 **Ponto de Conhecimento Tecnológico**
 
-*Hands-On | Aprender através da prática*
+*Explorar · Experimentar · Aprender · Partilhar*
+
+**HANDS-ON | Tutoriais, guias e boas práticas**
