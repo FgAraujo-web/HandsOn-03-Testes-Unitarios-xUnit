@@ -1,0 +1,19 @@
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Compilação .NET
+bin/
+obj/
+
+# Resultados dos testes
+TestResults/
+
+# Relatórios de cobertura gerados
+CoverageReport/
+
+# Ficheiros temporários
+*.tmp
+*.log
